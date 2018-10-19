@@ -9,8 +9,12 @@
 
 //simple mde
 @import "~simplemde/dist/simplemde.min.css";
-
-//
+//import select2
+@import "~select2/dist/css/select2.css";
+@import "~datatables.net-dt/css/jquery.dataTables.min.css";
+//sweetAlert2
+@import "~sweetalert2/dist/sweetalert2.min.css";
+//font-awesome
 @import "~@fortawesome/fontawesome-free/scss/fontawesome";
 @import "~@fortawesome/fontawesome-free/scss/solid";
 .navbar-laravel {
