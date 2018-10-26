@@ -75,7 +75,7 @@
 
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Create Permission') }}
+                                    {{ __('Update Permission') }}
                                 </button>
                             </div>
                         </form>

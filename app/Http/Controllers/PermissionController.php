@@ -79,8 +79,9 @@ class PermissionController extends Controller
      */
     public function edit(Permission $permission)
     {
+        $roles = Role::all();
         $permissions = Permission::all();
-        return view('permission.edit', compact('permission', 'permissions'));
+        return view('permission.edit', compact('permission', 'permissions','roles'));
     }
 
     /**
