@@ -4,6 +4,23 @@
         <li class="nav-item dropdown">
             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
                aria-haspopup="true" aria-expanded="false" v-pre>
+                User <span class="caret"></span>
+            </a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{{ route('user.create') }}">
+                    {{ __('Create User') }}
+                </a>
+                <a class="dropdown-item" href="{{ route('user.index') }}">
+                    {{ __('User') }}
+                </a>
+            </div>
+        </li>
+
+
+        <li class="nav-item dropdown">
+            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false" v-pre>
                 Role <span class="caret"></span>
             </a>
 
@@ -35,11 +52,11 @@
                     {{ __('Permissions') }}
                 </a>
 
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                    @csrf
-                </form>
             </div>
         </li>
+
+
+
     </ul>
 
     <!-- Right Side Of Navbar -->
