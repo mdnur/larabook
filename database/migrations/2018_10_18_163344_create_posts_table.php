@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreatePostsTable extends Migration
 {
@@ -22,8 +22,8 @@ class CreatePostsTable extends Migration
             $table->string('description');
             $table->text('content');
             $table->enum('status', ['published','draft']);
-            $table->unsignedInteger('featured');
-            $table->timestamp('published_at');
+            $table->unsignedInteger('featured')->default(0);
+            $table->timestamp('published_at')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
