@@ -60,11 +60,7 @@
                                     @endforeach
                                 </select>
 
-                                @if ($errors->has('description'))
-                                    <span class="invalid-feedback" role="alert">description
-                                    <strong>{{ $errors->first('description') }}</strong>
-                                </span>
-                                @endif
+
                             </div>
 
 

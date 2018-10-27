@@ -17,6 +17,37 @@
             </div>
         </li>
 
+        <li class="nav-item dropdown">
+            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false" v-pre>
+                Post <span class="caret"></span>
+            </a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{{ route('post.create') }}">
+                    {{ __('Create Post') }}
+                </a>
+                <a class="dropdown-item" href="{{ route('post.index') }}">
+                    {{ __('Post') }}
+                </a>
+            </div>
+        </li>
+        <li class="nav-item dropdown">
+            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false" v-pre>
+                Category <span class="caret"></span>
+            </a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{{ route('category.create') }}">
+                    {{ __('Create Category') }}
+                </a>
+                <a class="dropdown-item" href="{{ route('category.index') }}">
+                    {{ __('Category') }}
+                </a>
+            </div>
+        </li>
+
 
         <li class="nav-item dropdown">
             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
