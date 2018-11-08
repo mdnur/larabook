@@ -22,8 +22,7 @@
                                 @endif
                             </div>
 
-
-                            <div class="form-group">
+                            <div class="form-group" >
                                 <label for="description">Description</label>
                                 <input type="text"
                                        class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}"
@@ -90,6 +89,18 @@
 
         </div>
     </div>
+    <!-- Main Quill library -->
+    <script src="//cdn.quilljs.com/1.0.0/quill.js"></script>
+    <script src="//cdn.quilljs.com/1.0.0/quill.min.js"></script>
 
 
+
+    <!-- Core build with no theme, formatting, non-essential modules -->
+    <link href="//cdn.quilljs.com/1.0.0/quill.core.css" rel="stylesheet">
+    <script src="//cdn.quilljs.com/1.0.0/quill.core.js"></script>
+    <script>
+        var quill = new Quill('#editor', {
+            theme: 'snow'
+        });
+    </script>
 @endsection

@@ -10,7 +10,7 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except(['search']);
     }
     /**
      * Display a listing of the resource.
@@ -121,4 +121,13 @@ class UserController extends Controller
         $user->delete();
         return redirect(route('user.index'))->with('success','User deleted Successfully');
     }
+
+    public function search(Request $request)
+    {
+        $users = User::search($request->q)->get();
+        return view('profile.index',compact('users'));
+
+    }
+
+
 }

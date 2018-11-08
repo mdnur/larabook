@@ -16,3 +16,5 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::get('/comment/{comment}', 'CommentController@show');
+Route::get('/likers/{id}', 'ProfileController@getLikers');

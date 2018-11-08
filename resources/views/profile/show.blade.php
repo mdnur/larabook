@@ -98,12 +98,13 @@
                                 {!! str_limit($post->content , 150) !!}
                                 <a href="{{ route('post.show',$post->slug) }}">more</a>
                             </p>
+                            <img src="{{ $post->getFirstMediaUrl('posts') }}" alt="" width="100%" height="100%">
                             <div>
                                 tags:
                                 @forelse($post->tags as $tag)
                                     <span class="badge badge-primary">{{ $tag->name }}</span>
                                 @empty
-                                    <span class="badge badge-primary">{{ $tag['slug'] }}</span>
+                                    <span class="badge badge-primary">No tags found</span>
                                 @endforelse
 
                             </div>

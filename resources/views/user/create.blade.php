@@ -65,6 +65,12 @@
 
                             </div>
 
+                            {{--<div class="form-group">--}}
+                                {{--<label for="birthday">Birth Day</label>--}}
+                                {{--<input type="text" class="form-control datepicker" id="birthday"  name="birthday" value="02-16-2000">--}}
+                                {{--<small id="emailHelp" class="form-text text-muted">m/d/y</small>--}}
+                            {{--</div>--}}
+
 
                             <div class="form-group">
                                 <label for="roles">{{ __('Roles for User') }}</label>

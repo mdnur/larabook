@@ -5,10 +5,10 @@
         <div class="row ">
             <div class="col-md-10">
                 <div class="card">
-                    <div class="card-header">Created Post</div>
+                    <div class="card-header">Edit Post</div>
 
                     <div class="card-body">
-                        <form action="{{ route('post.update',$post->id) }}" method="POST">
+                        <form action="{{ route('post.update',$post->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('put')
                             <div class="form-group">
@@ -74,6 +74,17 @@
                                     </span>
                                 @endif
                             </div>
+
+                            <div class="form-group">
+                                <label for="file">Add Media</label>
+                                <input type="file" class="form-control-file" id="file" name="file">
+                                <small id="emailHelp" class="form-text text-muted">Sorry!!!! You can upload only one file for one post</small>
+                            </div>
+
+                            <div class="form-group">
+                                <img src="{{ $post->getFirstMediaUrl('posts') }}" alt="" width="40%" height="40%">
+                            </div>
+
 
                             <div class="form-group">
                                 <label for="tags">Tags</label>

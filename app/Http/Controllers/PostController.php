@@ -3,15 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Comment;
 use App\Post;
 use App\Tag;
 use Illuminate\Http\Request;
+use Spatie\MediaLibrary\Models\Media;
 
 class PostController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->only(['delete','destroy','edit']);
     }
 
     /**
@@ -46,10 +48,11 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
+       $this->validate($request, [
             'title' => 'required|max:120|unique:posts',
             'content' => 'required'
         ]);
+
         list($intTag, $strTag) = $this->separateStringAndIntergerOfArray($request);
 
         $post = new Post();
@@ -59,7 +62,14 @@ class PostController extends Controller
         $post->content = $request->get('content');
         $post->description = $request->get('description');
         $post->save();
-        if (empty($strTag)) {
+
+
+        if ($request->hasFile('file')) {
+            $post->addMedia($request->file)->toMediaCollection('posts');
+        }
+
+        $post->tags()->sync($intTag);
+        if (!empty($strTag)) {
             foreach ($strTag as $tag) {
                 $tags = new Tag();
                 $tags->name = $tag;
@@ -68,21 +78,24 @@ class PostController extends Controller
             }
         }
 
-        $post->tags()->sync($intTag);
 
 
-        return redirect(route('post.index'))->with('success', 'Post Created');
+        return redirect(route('home'))->with('success', 'Post Created');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Post  $post
-     * @return \Illuminate\Http\Response
+     * @param $slug
+     * @return void
      */
-    public function show(Post $post)
+    public function show($slug)
     {
-        //
+        $post = Post::with('tags','user')->whereSlug($slug)->get()->first();
+
+
+        $comments = Comment::wherePostId($post->id)->orderBy('created_at','desc')->paginate(10);
+        return view('post.show', compact('post','comments'));
     }
 
     /**
@@ -102,49 +115,60 @@ class PostController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  \App\Post $post
+     * @param $id
      * @return \Illuminate\Http\Response
      * @throws \Illuminate\Validation\ValidationException
      */
     public function update(Request $request, $id)
     {
+
         $this->validate($request, [
             'title' => 'required|max:120',
             'content' => 'required'
         ]);
-        list($intTag, $strTag) = $this->separateStringAndIntergerOfArray($request);
 
+        list($intTag, $strTag) = $this->separateStringAndIntergerOfArray($request);
         $post = Post::findOrFail($id);
+
         $post->title = $request->get('title');
         $post->category_id = $request->get('category_id');
         $post->user_id = auth()->user()->id;
         $post->content = $request->get('content');
         $post->description = $request->get('description');
         $post->save();
-        if (empty($strTag)) {
+
+        if ($request->hasFile('file')) {
+            Post::find($id)->deleteMedia($post->getFirstMedia('posts')->id);
+
+            $post->addMedia($request->file)->toMediaCollection('posts');
+        }
+
+        $post->tags()->sync($intTag);
+        if (!empty($strTag)) {
             foreach ($strTag as $tag) {
                 $tags = new Tag();
                 $tags->name = $tag;
                 $tags->save();
-                $tags->posts()->attach($post->id);
+                $tags->posts()->attach($id);
             }
         }
 
-        $post->tags()->sync($intTag);
-
-
-        return redirect(route('post.index'))->with('success', 'Post Created');
+//        return redirect(route('profile.show',auth()->user()->username))->with('success', 'Post Created');
+        return back();
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Post  $post
+     * @param $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy($id)
     {
-        //
+
+        $post = Post::findOrFail($id);
+        $post->delete();
+        return redirect(route('profile.show',auth()->user()->username));
     }
 
 
@@ -156,13 +180,21 @@ class PostController extends Controller
     {
         $intTag = [];
         $strTag = [];
-        foreach ($request->get('tags') as $tag) {
-            if (is_numeric($tag)) {
-                array_push($intTag, $tag);
-            } else {
-                array_push($strTag, $tag);
+        if ($request->get("tags")){
+            foreach ($request->get('tags') as $tag) {
+                if (is_numeric($tag)) {
+                    array_push($intTag, $tag);
+                } else {
+                    array_push($strTag, $tag);
+                }
             }
         }
         return array($intTag, $strTag);
     }
+
+    private function deleteImage($post)
+    {
+        $post->clearMediaCollectionExcept('posts', $post->getFirstMedia());
+    }
+
 }

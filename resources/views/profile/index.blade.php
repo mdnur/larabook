@@ -12,8 +12,11 @@
                     <div class="card-body">
                         @forelse($users as $user)
                             <div class="media" style="padding: 9px;border: 1px solid #ddd;">
-                                <img class="mr-3" src="{{ $user->avatarUrl }}" alt="Generic placeholder image"
-                                     width="64px" height="64px">
+                                @if ($user->avatar != null)
+                                    <img class="mr-3" src="{{ $user->avatarUrl }}" alt="Generic placeholder image" width="64px" height="64px">
+                                @else
+                                    <img class="mr-3"  alt="Generic placeholder image" width="64px" height="64px">
+                                @endif
                                 <div class="media-body">
                                     <div class="row">
                                         <div class="col-8">
