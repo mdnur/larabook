@@ -7,7 +7,6 @@ use App\Comment;
 use App\Post;
 use App\Tag;
 use Illuminate\Http\Request;
-use Spatie\MediaLibrary\Models\Media;
 
 class PostController extends Controller
 {
@@ -135,10 +134,11 @@ class PostController extends Controller
         $post->user_id = auth()->user()->id;
         $post->content = $request->get('content');
         $post->description = $request->get('description');
-        $post->save();
-
+        $post->save();;
         if ($request->hasFile('file')) {
-            Post::find($id)->deleteMedia($post->getFirstMedia('posts')->id);
+            if ($post->getFirstMedia('posts') != null) {
+                Post::find($id)->deleteMedia($post->getFirstMedia('posts')->id);
+            }
 
             $post->addMedia($request->file)->toMediaCollection('posts');
         }
