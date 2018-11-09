@@ -61,8 +61,6 @@ class ProfileController extends Controller
 
         $posts = Post::whereUserId($user->id)->orderBy('created_at', 'desc')->paginate(5);
 
-        dd($user->avatarUrl);
-
         return view('profile.show', compact('user', 'posts'));
     }
 
@@ -103,7 +101,7 @@ class ProfileController extends Controller
         $user->gender = $request->get('gender');
         $user->username = $request->get('username');
         $user->save();
-        return redirect(route('profile.show', $request->username));
+        return redirect(route('profile.show', $request->username))->with('success','You have updated you profile successfully');
     }
 
     /**
@@ -124,6 +122,7 @@ class ProfileController extends Controller
         $userUpdate = User::findOrFail($user->id);
         $userUpdate->avatar_id = $id;
         $userUpdate->save();
+        return back()->with('success', 'You have updated your avatar successfully');
     }
 
     public function getLikers($id)

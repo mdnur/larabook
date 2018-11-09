@@ -22,7 +22,6 @@
 <body>
 
     <div id="app">
-
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
@@ -39,6 +38,12 @@
                 @include('partials._nav')
             </div>
         </nav>
+        @if(Session::has('success'))
+            <div class="myAlert-top alert alert-success" >
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Success! </strong>{{ Session::get('success') }}
+            </div>
+        @endif
 
         <main class="py-4">
             @yield('content')

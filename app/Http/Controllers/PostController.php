@@ -154,7 +154,7 @@ class PostController extends Controller
         }
 
 //        return redirect(route('profile.show',auth()->user()->username))->with('success', 'Post Created');
-        return back();
+        return redirect(route('post.show',$post->slug))->with('success', 'Post Updated');;
     }
 
     /**

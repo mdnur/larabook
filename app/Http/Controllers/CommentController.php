@@ -49,7 +49,7 @@ class CommentController extends Controller
         $comment->post_id = $id;
         $comment->body = $request->get('body');
         $comment->save();
-        return back();
+        return back()->with('success',"Comment added");
     }
 
     /**
@@ -86,7 +86,7 @@ class CommentController extends Controller
         $comment  = Comment::findOrfail($id);
         $comment->body = $request->get('body');
         $comment->save();
-        return back();
+        return back()->with('success','You have updated Comment ');
     }
 
     /**

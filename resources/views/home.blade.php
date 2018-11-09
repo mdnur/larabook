@@ -5,6 +5,7 @@
     <div class="row ">
         <div class="col-md-8 justify-content-center ">
             <div class="alert alert-warning">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                 <h4>This is alpha version. And  Give me some feedback How I improve my website</h4>
                 <p>Developed by <a href="http://facebook.com/realmdnur">mdnur</a></p>
             </div>
