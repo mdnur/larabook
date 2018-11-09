@@ -72,6 +72,9 @@ class User extends Authenticatable implements HasMedia,LikerContract
 
     public function getAvatarUrlAttribute()
     {
+        if ($this->avatar_id == null) {
+            return null;
+        }
         return $this->avatar->getUrl('thumb');
     }
 

@@ -4,6 +4,10 @@
 <div class="container">
     <div class="row ">
         <div class="col-md-8 justify-content-center ">
+            <div class="alert alert-warning">
+                <h4>This is alpha version. And  Give me some feedback How I improve my website</h4>
+                <p>Developed by <a href="http://facebook.com/realmdnur">mdnur</a></p>
+            </div>
             <div class="card">
                 <form action="{{ route('post.store') }}" method="POST" style="display: inline" enctype="multipart/form-data">
                     @csrf

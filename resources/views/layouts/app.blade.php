@@ -45,8 +45,8 @@
         </main>
 
     </div>
-    <footer class="text-muted" style="background: #fff">
-        <div class="container">
+    <footer class="text-muted" style="background: #fff;padding: 5px;">
+        <div class="container text-center">
 
             <p>This website developed by <a href="https://www.facebook.com/realmdnur">mdnur</a></p>
         </div>

@@ -61,6 +61,8 @@ class ProfileController extends Controller
 
         $posts = Post::whereUserId($user->id)->orderBy('created_at', 'desc')->paginate(5);
 
+        dd($user->avatarUrl);
+
         return view('profile.show', compact('user', 'posts'));
     }
 

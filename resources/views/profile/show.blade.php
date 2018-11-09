@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container" xmlns:v-on="http://www.w3.org/1999/xhtml">
         <div class="fb-profile">
             <div style="background-image: url({{ asset('images/0.jpeg') }});width:100%;height: 300px">
                 {{--<img align="left" class="fb-image-lg" src="{{ asset('images/0.jpeg') }}"  width="400" height="300"  alt="Profile image example"/>--}}
@@ -19,15 +19,15 @@
                             @endif
                             <div class="avatar-preview">
                                 <div id="imagePreview" class="thumbnail"
-                                     style="background-image: url({{ $user->avatarUrl }});" align="left">
+                                     style="background-image: url({{ $user->avatarUrl ==null  ? '' : $user->avatarUrl }});" align="left">
                                 </div>
 
                                 @csrf
                                 <button type="submit" class="btn btn-success" style="margin: 15px 54px;" v-if="check">
                                     Upload
                                 </button>
-
                             </div>
+
 
                         </form>
 
@@ -36,12 +36,16 @@
             </div>
             {{--<img align="left" class="fb-image-profile thumbnail" src="http://lorempixel.com/180/180/people/9/" alt="Profile image example"/>--}}
             <div class="fb-profile-text">
-                <h1>{{ $user->name }}</h1>
+                <h1>{{ $user->name }} </h1>
+                <h6>Followed By <span class="badge badge-secondary"> {{ $user->followings()->count() }}</span> persons</h6>
                 <b>Bio</b>
                 <p>{{ $user->bio }}</p>
+                <p>Date OF Birth : {{ $user->birthday }}</p>
+                <p>Gender : {{ $user->gender ? 'male' : 'female' }}</p>
                 @if (auth()->user()->id == $user->id)
                     <a href="{{ route('profile.edit',$user->id) }}" class="btn btn-info"> Edit Profile</a>
                 @endif
+
             </div>
 
             <div class="profile-pic-upload">
@@ -55,6 +59,7 @@
     <div class="container">
         <div class="row ">
             <div class="col-md-10">
+
                 @forelse($posts as $post)
                     <div class="card gedf-card mt-2">
                         <div class="card-header">

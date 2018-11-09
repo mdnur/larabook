@@ -157,17 +157,29 @@
                                     @foreach ($comments as $comment)
                                         <li class="list-group-item">
                                             <div class="media">
-                                                <img class="mr-3" src="http://placehold.it/80" alt="Generic placeholder image">
+                                                {{--<img class="mr-3" src="http://placehold.it/80" alt="Generic placeholder image">--}}
+                                                <img class="mr-3" src="{{ $comment->user->avatarUrl }}" alt="Generic placeholder image" height="80px" width="80px">
                                                 <div class="media-body" style="width: 100%">
                                                     <h6 class="mt-0"><a href="#">{{ $comment->user->name }}</a> commented {{ $comment->created_at->diffForHumans() }}</h6>
                                                     <div>
                                                         {{ $comment->body }}
                                                     </div>
-                                                    <div class="action">
-                                                        <a href="#" data-toggle="modal" v-on:click="getComment({{ $comment->id }})" data-target="#exampleModal{{ $comment->id }}">Edit</a> |
-                                                        <a href="">Approved</a> |
-                                                        <a href="">delete</a> |
-                                                    </div>
+
+                                                        <div class="action">
+                                                            @if (auth()->user()->id == $comment->user_id )
+                                                            <a href="#" data-toggle="modal" v-on:click="getComment({{ $comment->id }})" data-target="#exampleModal{{ $comment->id }}">Edit</a> |
+                                                            {{--<a href="">Approved</a> |--}}
+                                                            @endif
+                                                            @if ($comment->user_id == $post->user_id or auth()->user()->id == $comment->user_id)
+                                                                <form action="{{ route('comment.delete',$comment->id) }}" method="Post"
+                                                                      style="display: inline" id="delete-form-{{ $comment->id }}">
+                                                                    @csrf
+                                                                    @method('Delete')
+                                                                    <a href="" @click.prevent="showAlert('{{ $comment->id }}')">Delete</a>
+                                                                </form>
+                                                            @endif
+                                                        </div>
+
                                                 </div>
                                             </div>
                                         </li>

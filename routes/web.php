@@ -23,6 +23,8 @@ Route::resource('/post', 'PostController');
 Route::resource('/category', 'CategoryController');
 Route::post("/post/comment/{post}", 'CommentController@store')->name('comment.store');
 Route::put("/post/comment/{id}", 'CommentController@update')->name('comment.update');
+Route::delete('comment/delete/{id}','CommentController@destroy')->name('comment.delete');
+
 
 //Route::get('/comment/{comment}','CommentController@show');
 Route::get('/profile/{username}','ProfileController@show')->name('profile.show');
