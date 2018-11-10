@@ -39,3 +39,9 @@ Route::get('/profile/edit/{id}', 'ProfileController@edit')->name('profile.edit')
 Route::put('profile/update/{id}','ProfileController@update')->name('profile.update');
 Route::get('/profile/chanage/password', 'ProfileController@ChangePasswordView')->name('profile.change');
 Route::put('/profile/chanage/password/{id}', 'ProfileController@ChangePassword')->name('profile.change.put');
+
+Route::get('upload', function() {
+    $user = \App\User::find(1);
+    $user->find(1);
+    $user->addMedia(public_path('images/default.png'))->toMediaCollection('avatar');
+});

@@ -13,15 +13,15 @@ class PostSeeder extends Seeder
      */
     public function run()
     {
-        $users =factory(App\User::class,10)->create();
+        // $users =factory(App\User::class,1)->create();
 
-        $users->each(function ($user) {
-            $user->roles()->attach(2);
-             factory(\App\Post::class,5)->create(['user_id' => $user->id])->each(function ($post) use ($user){
-                 factory(\App\Comment::class,5)->create(['post_id' => $post->id,'user_id' => $user->id]);
-                 $post->tags()->save(factory(\App\Tag::class)->make());
-             });
-        });
+        // $users->each(function ($user) {
+        //     $user->roles()->attach(2);
+        //      factory(\App\Post::class,1)->create(['user_id' => $user->id])->each(function ($post) use ($user){
+        //          factory(\App\Comment::class,5)->create(['post_id' => $post->id,'user_id' => $user->id]);
+        //          $post->tags()->save(factory(\App\Tag::class)->make());
+        //      });
+        // });
     }
 
 
