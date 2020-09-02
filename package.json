@@ -23,7 +23,7 @@
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.4.1",
         "bootstrap-datepicker": "^1.8.0",
-        "bootstrap-vue": "^2.0.0-rc.11",
+        "bootstrap-vue": "^2.0.0-rc.12",
         "datatables.net": "^1.10.19",
         "datatables.net-dt": "^1.10.19",
         "froala-editor": "^2.8.5",
